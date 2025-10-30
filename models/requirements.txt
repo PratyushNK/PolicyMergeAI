@@ -1,0 +1,8 @@
+transformers==4.42.0
+datasets==2.14.0
+accelerate==0.22.0
+peft==0.6.0
+sentencepiece
+safetensors
+evaluate
+torchmetrics

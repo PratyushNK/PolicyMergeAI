@@ -1,0 +1,10 @@
+{
+  "adapter_name": "schema-gen",
+  "task_type": "SEQ_2_SEQ_LM",
+  "inference_mode": true,
+  "r": 8,
+  "lora_alpha": 32,
+  "lora_dropout": 0.1,
+  "bias": "none",
+  "modules_to_save": null
+}
