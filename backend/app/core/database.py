@@ -26,6 +26,6 @@ async_session = sessionmaker(
 Base = declarative_base()
 
 # Dependency for routes
-async def get_db():
+async def get_session():
     async with async_session() as session:
         yield session
