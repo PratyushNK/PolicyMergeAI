@@ -1,9 +1,11 @@
-fastapi==0.116.2
-uvicorn==0.35.0
+fastapi
+uvicorn
 
-SQLAlchemy==2.0.36
-psycopg2-binary==2.9.10
+SQLAlchemy
+psycopg2-binary
 
-pydantic==2.11.9
+asyncpg
 
-python-dotenv==1.0.1
+pydantic
+pydantic-settings>=2.0
+python-dotenv
