@@ -4,22 +4,30 @@ from app.core.config import get_settings
 
 settings = get_settings()
 
-# Create async engine
+# Disable prepared statements entirely for PgBouncer (transaction mode)
+connect_args = {
+    # asyncpg specific
+    "statement_cache_size": 0,
+    "prepared_statement_cache_size": 0,
+    "server_settings": {
+        "statement_timeout": "60000",
+        "statement_cache_size": "0",
+        "prepared_statement_cache_size": "0",
+    }
+}
+
+# Create engine
 engine = create_async_engine(
-    settings.database_url, 
-    echo=False, 
+    settings.database_url,
+    echo=False,
     future=True,
-    connect_args={
-        "statement_cache_size": 0,
-        "prepared_statement_cache_size": 0,
-    },
+    pool_pre_ping=True,
+    connect_args=connect_args,
 )
 
 # Create session factory
 async_session = sessionmaker(
-    bind=engine,
-    class_=AsyncSession,
-    expire_on_commit=False
+    engine, class_=AsyncSession, expire_on_commit=False
 )
 
 # Base class for all ORM models

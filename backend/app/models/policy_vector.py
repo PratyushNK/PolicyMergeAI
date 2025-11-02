@@ -7,9 +7,9 @@ from app.core.database import Base
 
 
 class PolicyVector(Base):
-    __tablename__ = "policy_vectors"
+    __tablename__ = "policy_vector"
 
-    id = Column(UUID(as_uuid=True), ForeignKey("policies.id"), primary_key=True)
+    id = Column(UUID(as_uuid=True), ForeignKey("policy.id"), primary_key=True)
     embedding = Column(ARRAY(Float, dimensions=1))  # 384-d vector
 
     # Relationships

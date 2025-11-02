@@ -7,11 +7,21 @@ from app.core.database import Base
 
 
 class Cluster(Base):
-    __tablename__ = "clusters"
+    __tablename__ = "cluster"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     size = Column(Integer)
-    medoid = Column(UUID(as_uuid=True), ForeignKey("policies.id"), nullable=True)
+    medoid = Column(UUID(as_uuid=True), ForeignKey("policy.id"), nullable=True)
 
     # Relationships
-    policies = relationship("Policy", back_populates="cluster")
+    policies = relationship(
+        "Policy", 
+        back_populates="cluster", 
+        foreign_keys="Policy.cluster_id"
+    )
+
+    medoid_policy = relationship(
+        "Policy",
+        foreign_keys=[medoid],  # explicitly define medoid link
+        uselist=False
+    )

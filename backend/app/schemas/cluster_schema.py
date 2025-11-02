@@ -14,7 +14,6 @@ class ClusterCreate(ClusterBase):
 
 class ClusterRead(ClusterBase):
     id: UUID
-    created_at: datetime
 
     class Config:
         orm_mode = True

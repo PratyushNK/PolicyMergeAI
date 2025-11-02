@@ -12,7 +12,6 @@ class PolicyVectorCreate(PolicyVectorBase):
 
 class PolicyVectorRead(PolicyVectorBase):
     id: UUID
-    created_at: datetime
 
     class Config:
         orm_mode = True

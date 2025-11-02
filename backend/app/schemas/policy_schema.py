@@ -27,7 +27,6 @@ class PolicyCreate(PolicyBase):
 
 class PolicyRead(PolicyBase):
     id: UUID
-    created_at: datetime
 
     class Config:
         orm_mode = True
