@@ -1,9 +1,34 @@
-from sqlalchemy import Column, Integer, String, Text
+# app/models/policy.py
+import uuid
+from sqlalchemy import Column, String, Text, JSON, ForeignKey, TIMESTAMP
+from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import relationship
 from app.core.database import Base
+from datetime import datetime, timezone
+
 
 class Policy(Base):
     __tablename__ = "policies"
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(255), nullable=False)
-    content = Column(Text, nullable=False)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    subject_type = Column(String)
+    subject_name = Column(String)
+    subject_attributes = Column(JSON)
+    resource_type = Column(String)
+    resource_name = Column(String)
+    resource_attributes = Column(JSON)
+    action_name = Column(String)
+    effect = Column(String)
+    condition = Column(JSON)
+    policy_model = Column(String)
+    owner_name = Column(String)
+    original_policy = Column(String)
+    cluster_id = Column(UUID(as_uuid=True), ForeignKey("clusters.id"))
+    source_company_name = Column(String)
+    derived_from = Column(JSON)
+    policy_type = Column(String)
+    created_at = Column(TIMESTAMP(timezone=True), default=lambda: datetime.now(timezone.utc))
+
+    # Relationships
+    cluster = relationship("Cluster", back_populates="policies")
+    policy_vector = relationship("PolicyVector", back_populates="policy", uselist=False)
